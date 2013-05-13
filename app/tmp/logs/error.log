@@ -1,0 +1,10 @@
+2013-03-27 02:32:36 Error: Fatal Error (4): syntax error, unexpected 'public' (T_PUBLIC) in [C:\working\GitHub\chongzhi\app\Controller\AppController.php, line 35]
+2013-03-27 02:32:36 Error: [FatalErrorException] syntax error, unexpected 'public' (T_PUBLIC)
+Request URL: /chongzhi/
+Stack Trace:
+#0 C:\working\GitHub\chongzhi\lib\Cake\Error\ErrorHandler.php(184): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\working\GitH...', 35)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\working\GitH...', 35, Array)
+#2 C:\working\GitHub\chongzhi\lib\Cake\Core\App.php(925): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\working\GitH...', 35, Array)
+#3 C:\working\GitHub\chongzhi\lib\Cake\Core\App.php(898): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
