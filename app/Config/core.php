@@ -151,12 +151,6 @@
 	//Configure::write('Cache.viewPrefix', 'prefix');
 
 /**
- * Defines the default error type when using the log() function. Used for
- * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
- */
-	define('LOG_ERROR', LOG_ERR);
-
-/**
  * Session configuration.
  *
  * Contains an array of settings to use for session configuration. The defaults key is
@@ -200,16 +194,16 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'zdd13608680655');
+	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '19900412136086806550432383471');
+	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
- * Will append a querystring parameter containing the time the file was modified. This is
+ * Will append a query string parameter containing the time the file was modified. This is
  * useful for invalidating browser caches.
  *
  * Set to `true` to apply timestamps when debug > 0. Set to 'force' to always enable
@@ -235,7 +229,7 @@
 	//Configure::write('Asset.filter.js', 'custom_javascript_output_filter.php');
 
 /**
- * The classname and database used in CakePHP's
+ * The class name and database used in CakePHP's
  * access control lists.
  */
 	Configure::write('Acl.classname', 'DbAcl');
@@ -315,7 +309,7 @@
  * By default File is used, but for improved performance you should use APC.
  *
  * Note: 'default' and other application caches should be configured in app/Config/bootstrap.php.
- *       Please check the comments in boostrap.php for more info on the cache engines available
+ *       Please check the comments in bootstrap.php for more info on the cache engines available
  *       and their settings.
  */
 $engine = 'File';

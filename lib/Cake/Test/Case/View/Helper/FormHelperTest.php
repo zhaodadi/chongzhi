@@ -748,7 +748,7 @@ class FormHelperTest extends CakeTestCase {
 			'type' => 'float',
 			'null' => false,
 			'default' => null,
-			'length' => null
+			'length' => 10
 		)));
 
 		$this->Form->create('Contact');
@@ -1200,7 +1200,8 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 
 		$result = $this->Form->hidden('UserForm.stuff');
-		$expected = array('input' => array(
+		$expected = array(
+			'input' => array(
 				'type' => 'hidden', 'name' => 'data[UserForm][stuff]',
 				'id' => 'UserFormStuff'
 		));
@@ -1257,6 +1258,30 @@ class FormHelperTest extends CakeTestCase {
 	}
 
 /**
+ * Test secured inputs with custom names.
+ *
+ * @return void
+ */
+	public function testSecuredInputCustomName() {
+		$this->Form->request['_Token'] = array('key' => 'testKey');
+		$this->assertEquals(array(), $this->Form->fields);
+
+		$this->Form->input('text_input', array(
+			'name' => 'data[Option][General.default_role]',
+		));
+		$expected = array('Option.General.default_role');
+		$this->assertEquals($expected, $this->Form->fields);
+
+		$this->Form->input('select_box', array(
+			'name' => 'data[Option][General.select_role]',
+			'type' => 'select',
+			'options' => array(1, 2),
+		));
+		$expected = array('Option.General.default_role', 'Option.General.select_role');
+		$this->assertEquals($expected, $this->Form->fields);
+	}
+
+/**
  * Tests that the correct keys are added to the field hash index
  *
  * @return void
@@ -1304,6 +1329,27 @@ class FormHelperTest extends CakeTestCase {
 
 		$this->Form->radio('Test.test', $options);
 		$expected = array('Test.test');
+		$this->assertEquals($expected, $this->Form->fields);
+	}
+
+/**
+ * Test that when disabled is in a list based attribute array it works.
+ *
+ * @return void
+ */
+	public function testFormSecuredAndDisabledNotAssoc() {
+		$this->Form->request['_Token'] = array('key' => 'testKey');
+
+		$this->Form->select('Model.select', array(1, 2), array('disabled'));
+		$this->Form->checkbox('Model.checkbox', array('disabled'));
+		$this->Form->text('Model.text', array('disabled'));
+		$this->Form->textarea('Model.textarea', array('disabled'));
+		$this->Form->password('Model.password', array('disabled'));
+		$this->Form->radio('Model.radio', array(1, 2), array('disabled'));
+
+		$expected = array(
+			'Model.radio' => ''
+		);
 		$this->assertEquals($expected, $this->Form->fields);
 	}
 
@@ -1820,7 +1866,7 @@ class FormHelperTest extends CakeTestCase {
 			'label' => array('for'),
 			'Balance',
 			'/label',
-			'input' => array('name', 'type' => 'number', 'maxlength' => 8, 'id'),
+			'input' => array('name', 'type' => 'number', 'id'),
 			'/div',
 		);
 		$this->assertTags($result, $expected);
@@ -2159,6 +2205,28 @@ class FormHelperTest extends CakeTestCase {
 			'/div'
 		);
 		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('User.disabled', array(
+			'label' => 'Disabled',
+			'type' => 'checkbox',
+			'data-foo' => 'disabled'
+		));
+		$expected = array(
+			'div' => array('class' => 'input checkbox'),
+			'input' => array('type' => 'hidden', 'name' => 'data[User][disabled]', 'value' => '0', 'id' => 'UserDisabled_'),
+			array('input' => array(
+				'type' => 'checkbox',
+				'name' => 'data[User][disabled]',
+				'value' => '1',
+				'id' => 'UserDisabled',
+				'data-foo' => 'disabled'
+			)),
+			'label' => array('for' => 'UserDisabled'),
+			'Disabled',
+			'/label',
+			'/div'
+		);
+		$this->assertTags($result, $expected);
 	}
 
 /**
@@ -2301,6 +2369,36 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertContains('<option value="04" selected="selected">4</option>', $result);
 		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
 		$this->assertContains('<option value="pm" selected="selected">pm</option>', $result);
+
+		$result = $this->Form->input('Model.start_time', array(
+			'type' => 'time',
+			'timeFormat' => '12',
+			'interval' => 10,
+			'selected' => '2013-05-19 00:33:00'
+		));
+		$this->assertContains('<option value="12" selected="selected">12</option>', $result);
+		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
+		$this->assertContains('<option value="am" selected="selected">am</option>', $result);
+
+		$result = $this->Form->input('Model.start_time', array(
+			'type' => 'time',
+			'timeFormat' => '12',
+			'interval' => 10,
+			'selected' => '2013-05-19 13:33:00'
+		));
+		$this->assertContains('<option value="01" selected="selected">1</option>', $result);
+		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
+		$this->assertContains('<option value="pm" selected="selected">pm</option>', $result);
+
+		$result = $this->Form->input('Model.start_time', array(
+			'type' => 'time',
+			'timeFormat' => '12',
+			'interval' => 10,
+			'selected' => '2013-05-19 01:33:00'
+		));
+		$this->assertContains('<option value="01" selected="selected">1</option>', $result);
+		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
+		$this->assertContains('<option value="am" selected="selected">am</option>', $result);
 	}
 
 /**
@@ -8621,7 +8719,7 @@ class FormHelperTest extends CakeTestCase {
 		$this->Form->inputDefaults(array('required' => false));
 		$result = $this->Form->input('Contact.imrequired');
 		$expected = array(
-			'div' => array('class' => 'input text required'),
+			'div' => array('class' => 'input text'),
 			'label' => array('for' => 'ContactImrequired'),
 			'Imrequired',
 			'/label',
@@ -8634,6 +8732,23 @@ class FormHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 
 		$result = $this->Form->input('Contact.imrequired', array('required' => false));
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequired', array('required' => true));
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequired'),
+			'Imrequired',
+			'/label',
+			'input' => array(
+				'required' => 'required', 'type' => 'text', 'name' => 'data[Contact][imrequired]',
+				'id' => 'ContactImrequired'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequired', array('required' => null));
 		$this->assertTags($result, $expected);
 	}
 
