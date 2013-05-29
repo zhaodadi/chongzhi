@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  *
  * PHP 5
@@ -17,20 +17,23 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+$SiteDescription = __d('BestChong', 'BestChong: 最好的华人充值网');
+$SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
+		<?php echo $SiteDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
 
+		echo $this->Html->css(array('css3','styles'));
 		echo $this->Html->css('cake.generic');
+		echo $this->Html->script(array('jquery-1.10.0.min'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -40,17 +43,30 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link($SiteDescription, $SiteURL); ?></h1>
 		</div>
 		<div id="content">
-
+			<header>
+				<a href="#" id="logo"><img src="images/logo.png" width="221" height="100" alt="logo"/></a>    
+				<nav>
+					<ul>
+						<li><a href="#" class="current">Home</a></li>
+						<li><a href="#">About us</a></li>
+						<li><a href="#">Services</a></li>
+						<li><a href="#">Portfolio</a></li>
+						<li><a href="#">News</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</nav><!--end menu-->
+			</header><!--end header-->
+		
 			<?php echo $this->Session->flash(); ?>
 
-			<?php echo $this->fetch('content'); ?>
+			<?php //echo //$this->fetch('content'); ?>
 		</div>
 		<div id="footer">
 			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
+					$this->Html->image('cake.power.gif', array('alt' => $SiteDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
 					array('target' => '_blank', 'escape' => false)
 				);
