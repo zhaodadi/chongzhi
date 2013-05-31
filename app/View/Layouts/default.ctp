@@ -29,10 +29,11 @@ $SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
+		echo $this->Html->charset();
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css(array('css3','styles'));
-		echo $this->Html->css('cake.generic');
+		//echo $this->Html->css('cake.generic');
 		echo $this->Html->script(array('jquery-1.10.0.min'));
 
 		echo $this->fetch('meta');
@@ -43,10 +44,10 @@ $SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($SiteDescription, $SiteURL); ?></h1>
+			<h1><?php //echo $this->Html->link($SiteDescription, $SiteURL); ?></h1>
 		</div>
 		<div id="content">
-			<header>
+		    <header>
 				<a href="#" id="logo"><img src="images/logo.png" width="221" height="100" alt="logo"/></a>    
 				<nav>
 					<ul>
@@ -64,15 +65,14 @@ $SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 
 			<?php //echo //$this->fetch('content'); ?>
 		</div>
-		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $SiteDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
-		</div>
+		
+		<footer>
+			<div class="container">  
+				<div id="FooterTwo"> © 2013 BestChong.com </div>
+				<div id="FooterTree"> Copyright </div> 
+			</div>
+		</footer>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump'); ?>
 </body>
 </html>
