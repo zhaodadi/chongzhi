@@ -51,19 +51,18 @@ $SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 				<a href="#" id="logo"><img src="images/logo.png" width="221" height="100" alt="logo"/></a>    
 				<nav>
 					<ul>
-						<li><a href="#" class="current">Home</a></li>
-						<li><a href="#">About us</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Portfolio</a></li>
-						<li><a href="#">News</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="#" class="current">首页</a></li>
+						<li><a href="#">立即充值</a></li>
+						<li><a href="#">我的账户</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li><a href="#">帮助</a></li>
 					</ul>
 				</nav><!--end menu-->
 			</header><!--end header-->
 		
 			<?php echo $this->Session->flash(); ?>
 
-			<?php //echo //$this->fetch('content'); ?>
+			<?php echo $this->fetch('content'); ?>
 		</div>
 		
 		<footer>
@@ -73,6 +72,8 @@ $SiteURL = __d('BestChongURL', 'http://www.bestchong.com');
 			</div>
 		</footer>
 	</div>
-	<?php //echo $this->element('sql_dump'); ?>
+	<?php //echo $this->element('sql_dump');
+		  echo $this->Js->writeBuffer(); 
+	?>
 </body>
 </html>

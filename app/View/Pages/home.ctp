@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  *
  * PHP 5
@@ -20,7 +20,67 @@ if (!Configure::read('debug')):
 	throw new NotFoundException();
 endif;
 App::uses('Debugger', 'Utility');
+
+echo $this->Html->script(array('jQueryPlugin/jquery.isotope.min.js'));
 ?>
+<script>
+var $container = $('#group_bannner_right');
+
+$container.imagesLoaded( function(){
+  $container.isotope({
+    // options...
+  });
+});
+</script>
+<div id="intro">
+	<div class="group_bannner_right" id='group_bannner_right'>
+		<div class='item'><img src="images/picture.png" alt="baner"></div>
+		<div class='item'><img src="images/picture.png" alt="baner"></div>
+	</div>
+
+	<header class="group_bannner_left">
+		<hgroup>
+		<h1>快速直冲</h1>
+		<h2>支付宝, 5173, 财付通</h2>
+		</hgroup>
+	</header>
+</div>
+ <!--start holder-->
+
+   <div class="holder_content">
+   
+   <section class="group1">
+   <h3>About us</h3>
+   	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec molestie. Sed aliquam sem ut arcu. Phasellus sollicitudin. 
+	Vestibulum condimentum  facilisis nulla. In hac habitasse platea dictumst. Nulla nonummy. Cras quis libero.</p>
+    <a href=""><span class="read_more">Read more...</span></a>
+
+	</section>
+	
+
+     
+   <section class="group2">
+   <h3>Services</h3>
+   	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec molestie. Sed aliquam sem ut arcu. Phasellus sollicitudin. 
+	Vestibulum condimentum  facilisis nulla. In hac habitasse platea dictumst. Nulla nonummy. Cras quis libero.</p>
+	<a href=""><span class="read_more">Read more ...</span></a>
+
+	</section>
+
+
+       
+   <section class="group3">
+   <h3>News</h3>
+   	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec molestie. Sed aliquam sem ut arcu. Phasellus sollicitudin. 
+	Vestibulum condimentum  facilisis nulla. In hac habitasse platea dictumst. Nulla nonummy. Cras quis libero.</p>
+	<a href=""><span class="read_more">Read more...</span></a>
+
+	</section>
+
+  
+   </div>
+   <!--end holder-->
+<!--
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
 <p>
 	<a href="http://cakephp.org/changelogs/<?php echo Configure::version(); ?>"><?php echo __d('cake_dev', 'Read the changelog'); ?> </a>
